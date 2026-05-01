@@ -5,13 +5,17 @@ description = "FastAPI backend for the Project Management MVP."
 requires-python = ">=3.12"
 dependencies = [
     "fastapi",
+    "httpx",
     "uvicorn[standard]",
 ]
 
 [dependency-groups]
 dev = [
-    "httpx",
+    "pytest",
 ]
 
 [project.scripts]
 pm-backend = "app.main:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

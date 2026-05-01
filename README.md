@@ -1,5 +1,9 @@
 # Project Management MVP
 
+The Docker app builds the Next.js frontend as a static site and serves it from the FastAPI backend.
+
+AI features require `OPENROUTER_API_KEY` in `.env` or the environment.
+
 ## Run
 
 Windows PowerShell:

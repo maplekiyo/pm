@@ -5,10 +5,11 @@ import type { Card } from "@/lib/kanban";
 
 type KanbanCardProps = {
   card: Card;
+  onUpdate: (cardId: string, title: string, details: string) => void;
   onDelete: (cardId: string) => void;
 };
 
-export const KanbanCard = ({ card, onDelete }: KanbanCardProps) => {
+export const KanbanCard = ({ card, onUpdate, onDelete }: KanbanCardProps) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: card.id });
 
@@ -31,13 +32,19 @@ export const KanbanCard = ({ card, onDelete }: KanbanCardProps) => {
       data-testid={`card-${card.id}`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div>
-          <h4 className="font-display text-base font-semibold text-[var(--navy-dark)]">
-            {card.title}
-          </h4>
-          <p className="mt-2 text-sm leading-6 text-[var(--gray-text)]">
-            {card.details}
-          </p>
+        <div className="w-full">
+          <input
+            value={card.title}
+            onChange={(event) => onUpdate(card.id, event.target.value, card.details)}
+            className="w-full bg-transparent font-display text-base font-semibold text-[var(--navy-dark)] outline-none"
+            aria-label={`Title for ${card.title}`}
+          />
+          <textarea
+            value={card.details}
+            onChange={(event) => onUpdate(card.id, card.title, event.target.value)}
+            className="mt-2 min-h-16 w-full resize-none bg-transparent text-sm leading-6 text-[var(--gray-text)] outline-none"
+            aria-label={`Details for ${card.title}`}
+          />
         </div>
         <button
           type="button"
